@@ -1,0 +1,132 @@
+name: publish-npm
+
+# npm's trusted publishers match on this filename, so renaming this file
+# breaks publishing for all six packages.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish, e.g. v0.0.1"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-npm-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest # trusted publishing rejects self-hosted runners
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24" # OIDC needs npm >= 11.5.1
+          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
+
+      - name: Check npm is new enough for OIDC
+        run: |
+          set -euo pipefail
+          have=$(npm --version)
+          echo "npm $have"
+          printf '%s\n%s\n' "11.5.1" "$have" | sort -V -C \
+            || { echo "npm $have is too old for trusted publishing (need >= 11.5.1)"; exit 1; }
+
+      - name: Work out which release to publish
+        id: rel
+        run: |
+          set -euo pipefail
+          tag="${{ github.event.release.tag_name || inputs.tag }}"
+          version="${tag#v}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          # The update notifier only compares plain X.Y.Z, so a prerelease on the
+          # latest dist-tag would silence it rather than advertise itself.
+          if [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "dist_tag=latest" >> "$GITHUB_OUTPUT"
+          else
+            echo "dist_tag=next" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download the npm tarballs from the release
+        run: |
+          set -euo pipefail
+          mkdir -p tarballs
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" \
+            --pattern '*.tgz' --dir tarballs
+          ls -1 tarballs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.rel.outputs.tag }}
+
+      - name: Check every package is present before publishing any
+        run: |
+          set -euo pipefail
+          missing=0
+          for want in darwin-arm64 darwin-x64 linux-x64 linux-arm64 win32-x64; do
+            ls tarballs/tryterra-cli-"$want"-"$VERSION".tgz >/dev/null 2>&1 \
+              || { echo "missing the $want package"; missing=1; }
+          done
+          ls tarballs/tryterra-cli-"$VERSION".tgz >/dev/null 2>&1 \
+            || { echo "missing the wrapper package"; missing=1; }
+          test "$missing" -eq 0
+        env:
+          VERSION: ${{ steps.rel.outputs.version }}
+
+      # The wrapper pins the platform packages exactly, so it must go last.
+      - name: Publish the platform packages
+        run: |
+          set -euo pipefail
+          for p in darwin-arm64 darwin-x64 linux-x64 linux-arm64 win32-x64; do
+            name="@tryterra/cli-$p"
+            if npm view "$name@$VERSION" version >/dev/null 2>&1; then
+              echo "$name@$VERSION is already published, skipping"
+              continue
+            fi
+            npm publish --access public --tag "$DIST_TAG" \
+              "./tarballs/tryterra-cli-$p-$VERSION.tgz"
+          done
+        env:
+          VERSION: ${{ steps.rel.outputs.version }}
+          DIST_TAG: ${{ steps.rel.outputs.dist_tag }}
+
+      - name: Publish the wrapper
+        run: |
+          set -euo pipefail
+          if npm view "@tryterra/cli@$VERSION" version >/dev/null 2>&1; then
+            echo "@tryterra/cli@$VERSION is already published, skipping"
+            exit 0
+          fi
+          npm publish --access public --tag "$DIST_TAG" \
+            "./tarballs/tryterra-cli-$VERSION.tgz"
+        env:
+          VERSION: ${{ steps.rel.outputs.version }}
+          DIST_TAG: ${{ steps.rel.outputs.dist_tag }}
+
+      - name: Report what landed
+        run: |
+          set -euo pipefail
+          {
+            echo "### Published to npm"
+            echo
+            echo "| package | version | dist-tag |"
+            echo "|---|---|---|"
+            for n in cli cli-darwin-arm64 cli-darwin-x64 cli-linux-x64 cli-linux-arm64 cli-win32-x64; do
+              echo "| @tryterra/$n | $VERSION | $DIST_TAG |"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+        env:
+          VERSION: ${{ steps.rel.outputs.version }}
+          DIST_TAG: ${{ steps.rel.outputs.dist_tag }}

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Account, billing or contract questions
+    url: https://dashboard.tryterra.co
+    about: This tracker is public. Use your Terra support channel for anything specific to your account.
+  - name: Terra API documentation
+    url: https://docs.tryterra.co
+    about: For questions about the API rather than the CLI.

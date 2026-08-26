@@ -1,0 +1,25 @@
+name: Feature request
+description: Something the CLI should be able to do
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Commands are generated from the Terra API's OpenAPI description, so a
+        missing command is usually a missing endpoint. `terra api list
+        --uncovered` shows the endpoints that have no command yet, and
+        `terra api <path>` reaches any of them today.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The task, rather than the feature. It often has a shorter answer.
+    validations:
+      required: true
+  - type: textarea
+    id: workaround
+    attributes:
+      label: How are you doing it now?
+      description: Including if the answer is "I cannot".
+    validations:
+      required: false

@@ -1,0 +1,34 @@
+name: Bug report
+description: The CLI did something wrong
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `terra version`.
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      placeholder: macOS 15 arm64
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: What you ran, and what happened
+      description: >
+        Adding `--show-headers` traces the request to stderr with credentials
+        redacted and bodies reduced to a byte count, so it is safe to paste.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
