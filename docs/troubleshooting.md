@@ -40,8 +40,9 @@ request" from "the API answered this". `terra api --help` has the rest.
 
 ## Common cases
 
-**"no environment selected"**. The command needs a dev-id. Pass `--env`, set
-`TERRA_ENV`, or run `terra environments use <dev-id>`.
+**"no environment selected"**. The command acts on one environment and none was
+given. Pass `--env`, set `TERRA_ENV`, or run `terra environments use`. Each takes
+the environment's name as readily as its dev-id.
 
 **"the endpoint does not exist on this deployment"**. A bare 404 with no problem
 body usually means the request never reached the admin API: either the path is
