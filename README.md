@@ -6,7 +6,8 @@
 
 Set up and debug your Terra integration from the terminal. Create environments
 and credentials, turn providers on and off, see which users have connected, and
-replay the webhook events your integration received.
+replay the webhook events your integration received. `terra data-api` reaches
+the data API too, for the wearable data itself and the user-linking flow.
 
 Coding agents can drive it too. `terra agent setup` installs the guidance into
 Claude Code, Cursor and Codex, and `terra reference --format json` hands an
@@ -35,7 +36,7 @@ agent every command in a single call.
 
    ```sh
    terra environments list
-   terra environments use dev-prod
+   terra environments use Production
    terra users list
    ```
 
