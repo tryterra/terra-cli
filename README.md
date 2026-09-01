@@ -17,6 +17,12 @@ agent every command in a single call.
 
 1. Install the CLI:
 
+   **Homebrew (macOS):**
+
+   ```sh
+   brew install tryterra/tap/terra
+   ```
+
    **npm (all platforms):**
 
    ```sh
@@ -61,6 +67,12 @@ terra environments update --name Acme --dry-run
 Commands whose response contains a credential will not print it without
 `--reveal`. Destructive ones confirm first, naming the account and environment
 they will act on, and need `--yes` where there is no terminal to ask.
+
+## What changed
+
+Every released version, newest first, is in
+[the changelog](https://github.com/tryterra/terra-cli/blob/main/CHANGELOG.md).
+`terra version` says which one you are on.
 
 ## Reporting bugs
 
