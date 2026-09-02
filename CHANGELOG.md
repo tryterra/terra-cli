@@ -5,6 +5,23 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.4.0
+
+#### Added
+
+- `terra ask "how do I generate an auth widget"` answers a question from Terra's
+  published documentation and cites the pages the answer came from. Quote the
+  question, or leave it unquoted and it is joined back together.
+
+- `--format json` prints a stable schema for scripts and agents, carrying
+  `question`, `answer`, `confidence` and `sources`, with every field always
+  present. Unlike the rest of the CLI the prose output does not become JSON when
+  piped, so reading an answer in a pager stays readable.
+
+- An answer citing no sources did not come from the documentation, and says so
+  on stderr. Finding nothing exits 0 and leaves stdout empty, since it is not a
+  failure of the CLI or of the API.
+
 ## v0.3.0
 
 #### Changed
