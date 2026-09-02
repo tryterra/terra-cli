@@ -46,7 +46,15 @@ looking up the command. See [Let your agent drive it](#let-your-agent-drive-it).
    terra users list
    ```
 
-4. Find any other command:
+4. Ask a question when you are not sure:
+
+   ```sh
+   terra ask "how do I generate an auth widget"
+   ```
+
+   Answered from the documentation, with links to the pages it came from.
+
+5. Find any other command:
 
    ```sh
    terra reference
