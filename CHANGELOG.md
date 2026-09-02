@@ -5,6 +5,30 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.3.0
+
+#### Changed
+
+- `terra agent setup` installs Terra's published agent skills, rather than the
+  single guidance file it used to write. The catalog lives in
+  tryterra/agent-skills and is fetched when the command runs, so a skill added
+  there arrives on the next run without upgrading the CLI. It includes
+  terra-cli, the skill for driving this CLI. Nothing is bundled in the binary,
+  so setup now needs the network.
+
+- Each skill is written where that agent reads it, which are the same
+  directories `npx skills add tryterra/agent-skills` uses. Setup also looks at
+  the agents installed on this machine, not only the ones this project already
+  shows signs of.
+
+- `terra agent setup` takes three new flags: `--skills` to install skills by
+  name, `--global` to install for this user rather than into this project, and
+  `--force` to write even where the skills are already current.
+
+- The files an older CLI wrote (`.claude/skills/terra/SKILL.md`,
+  `.codex/terra.md`, `.cursor/rules/terra.mdc`) are renamed to `.bak` on the
+  first run, since nothing refreshes them any more.
+
 ## v0.2.0
 
 #### Added
