@@ -1,7 +1,8 @@
 # Terra CLI
 
-![](https://img.shields.io/badge/Node.js-18%2B-brightgreen?style=flat-square) [![npm]](https://www.npmjs.com/package/@tryterra/cli)
+[![Homebrew]](https://github.com/tryterra/homebrew-tap) [![npm]](https://www.npmjs.com/package/@tryterra/cli) ![](https://img.shields.io/badge/Node.js-18%2B-brightgreen?style=flat-square)
 
+[Homebrew]: https://img.shields.io/badge/Homebrew-tryterra%2Ftap-orange?style=flat-square
 [npm]: https://img.shields.io/npm/v/@tryterra/cli.svg?style=flat-square
 
 Set up and debug your Terra integration from the terminal. Create environments
@@ -9,9 +10,8 @@ and credentials, turn providers on and off, see which users have connected, and
 replay the webhook events your integration received. `terra data-api` reaches
 the data API too, for the wearable data itself and the user-linking flow.
 
-Coding agents can drive it too. `terra agent setup` installs the guidance into
-Claude Code, Cursor and Codex, and `terra reference --format json` hands an
-agent every command in a single call.
+Your coding agent can drive it too, so you can ask for the result instead of
+looking up the command. See [Let your agent drive it](#let-your-agent-drive-it).
 
 ## Get started
 
@@ -54,6 +54,51 @@ agent every command in a single call.
 
    Every command and flag as one page. Name a group to narrow it:
    `terra reference billing`.
+
+## Let your agent drive it
+
+Terra configuration usually means clicking around the dashboard, which your
+agent cannot do. Give it the CLI instead. Paste this into Claude Code, Cursor,
+Codex or whatever you use:
+
+```text
+Set up the Terra API CLI for this project. Install it with
+"brew install tryterra/tap/terra" on macOS, or "npm install -g @tryterra/cli"
+otherwise. Then run "terra agent setup" to install Terra's agent skills, read
+the terra-cli skill it writes, and follow its getting-started section to tell
+me what my account is configured to do.
+```
+
+That installs the skills into whichever agent is asking, so your agent then
+knows the commands, the exit codes, and the traps worth avoiding. In a later
+session, once it has picked the skills up, this is enough:
+
+```text
+Get started with Terra API.
+```
+
+It will check that the CLI is authenticated, find your environments, report
+which wearable providers are on and where webhooks are going, and name the gap
+that matters. Then ask for whatever you need:
+
+```text
+Which wearable providers are enabled in my dev environment, and where are its
+webhooks going?
+```
+
+```text
+A sleep webhook never arrived for user 8f2a1c. Find out what Terra actually
+delivered, and resend it.
+```
+
+```text
+Set up a staging environment with Garmin and Fitbit turned on, and point its
+webhooks at my tunnel.
+```
+
+Asking questions is safe: reading changes nothing, credentials stay hidden
+unless someone passes `--reveal`, and anything destructive refuses to run
+unattended rather than guessing that you meant it.
 
 ## Before you change anything
 
