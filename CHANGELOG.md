@@ -5,6 +5,27 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.4.1
+
+##### Changed
+
+- `terra ask` takes the question as one quoted argument. Unquoted, it used to be
+  joined back together, which searched for whatever survived flag parsing:
+  `terra ask how does --format json work` answered "how does work" and gave no
+  sign it had changed the question. Quote it, which every documented example
+  already did:
+
+  ```
+  terra ask "how does --format json work"
+  ```
+
+##### Fixed
+
+- Usage errors say what the command expects. A wrong number of arguments prints
+  the command's own usage line rather than a count of anonymous arguments, and
+  an argument starting with a dash points at the `--` terminator that lets it
+  through.
+
 ## v0.4.0
 
 #### Added
