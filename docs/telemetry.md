@@ -15,9 +15,11 @@ is collected, so nothing is sent and nothing is queued.
 
 ## What is collected
 
-Which commands are run and how they turned out, along with the CLI version, your
-operating system and architecture, how the CLI was installed, and whether a
-coding agent is driving it.
+Which commands are run and how they turned out, along with the CLI version,
+your operating system, how the CLI was installed, and whether a coding agent or
+a CI job is driving it. Once you have logged in, this is associated with your
+Terra account, and it is always associated with a random identifier generated
+for the installation on first run.
 
 ## What is not collected
 
@@ -25,8 +27,5 @@ coding agent is driving it.
 the flags you passed. That rule is the reason a dev-id, a user id, or a token
 cannot end up in an event.
 
-Also never collected: your token, request bodies, response bodies, file paths,
-environment variables, and the contents of your config file.
-
-`internal/telemetry` is the authoritative source where this page and the
-implementation differ.
+Also never collected: your token, request and response bodies, error messages,
+file paths, environment variables, and the contents of your config file.
