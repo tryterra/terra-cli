@@ -5,6 +5,60 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.5.0
+
+##### Added
+
+- Scope names are checked before anything is sent. `terra login --scope` and
+  `terra data-tokens create --scopes` refuse a scope the token kind cannot
+  hold, naming every rejected name at once, instead of returning a `400` one
+  name per response. `--body` and `--body-file` are covered too.
+
+- Both commands list the scopes they can grant in `--help` and offer them to
+  shell completion, so a set can be chosen without a round trip. `terra login
+  --help` marks every scope a default token does not receive, rather than some
+  of them.
+
+- The API can attach an advisory note to a response, and the CLI prints it on
+  stderr. It stays out of `--format json` output, and a note repeated on every
+  page of a walk is printed once.
+
+##### Changed
+
+- Destructive commands confirm differently. The prompt lists what is being
+  acted on and names the command, instead of printing the HTTP method and path
+  it was about to send:
+
+  ```
+  This command will be executed on the account with the following details:
+  > Customer: fAxFpRw86YlMmV3
+  > Environment: dev-example
+  > Provider: GARMIN
+  Are you sure you want to perform the command: unified-api sources disable?
+  Enter 'yes' to confirm:
+  ```
+
+  Only `yes` proceeds, so a bare `y` now cancels. `--yes` is unchanged, and a
+  command run without a terminal still refuses and names it.
+
+- `terra --help` and the README point at the CLI documentation on
+  docs.tryterra.co, which nothing shipped had linked.
+
+- `--show-headers` includes the advisory-note header.
+
+- Usage reporting records how a command finished rather than only that it
+  started. What is collected and how to turn it off are unchanged, and both are
+  in [docs/telemetry.md](docs/telemetry.md).
+
+##### Fixed
+
+- `terra data-api` examples use a sample user id. They read `user_id=<uuid>`,
+  which a shell reads as a redirect from a file named `uuid`, so pasting one
+  failed before terra ran.
+
+- An empty `--scope` says the name is empty, rather than reporting an unknown
+  scope with nothing after it.
+
 ## v0.4.1
 
 ##### Changed
