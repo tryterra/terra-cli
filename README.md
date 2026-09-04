@@ -13,6 +13,8 @@ the data API too, for the wearable data itself and the user-linking flow.
 Your coding agent can drive it too, so you can ask for the result instead of
 looking up the command. See [Let your agent drive it](#let-your-agent-drive-it).
 
+The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
+
 ## Get started
 
 1. Install the CLI:
@@ -120,6 +122,31 @@ terra environments update --name Acme --dry-run
 Commands whose response contains a credential will not print it without
 `--reveal`. Destructive ones confirm first, naming the account and environment
 they will act on, and need `--yes` where there is no terminal to ask.
+
+## Documentation
+
+[The CLI section of Terra's documentation][docs] covers the whole tool:
+
+- [Installation] for Homebrew, npm, staying up to date, and shell completion
+- [Authentication] for logging in interactively, in CI, or with no browser
+- [Configuration] for environments, profiles, and every variable
+- [Output and scripting] for formats, field selection, pagination, exit codes
+- [Guardrails] for the dry run, secret gating, and confirmations
+- [Raw API requests] for reaching an endpoint that has no command of its own
+- [Coding agents] for driving the CLI from an agent
+- [Ask the docs] for asking a question from the terminal
+- [Command reference] for every command group and the flags they all share
+
+[docs]: https://docs.tryterra.co/developer-tools/terra-cli
+[Installation]: https://docs.tryterra.co/developer-tools/terra-cli/installation
+[Authentication]: https://docs.tryterra.co/developer-tools/terra-cli/authentication
+[Configuration]: https://docs.tryterra.co/developer-tools/terra-cli/configuration
+[Output and scripting]: https://docs.tryterra.co/developer-tools/terra-cli/output-and-scripting
+[Guardrails]: https://docs.tryterra.co/developer-tools/terra-cli/guardrails
+[Raw API requests]: https://docs.tryterra.co/developer-tools/terra-cli/raw-requests
+[Coding agents]: https://docs.tryterra.co/developer-tools/terra-cli/coding-agents
+[Ask the docs]: https://docs.tryterra.co/developer-tools/terra-cli/ask
+[Command reference]: https://docs.tryterra.co/developer-tools/terra-cli/command-reference
 
 ## What changed
 
