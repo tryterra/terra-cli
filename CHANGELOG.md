@@ -5,6 +5,32 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.5.1
+
+###### Changed
+
+- Commands no longer wait for usage reporting. A report is handed to a
+  short-lived background process, so a command returns as soon as its own work
+  is done. `terra version` took about 160ms and now takes about 8ms. On a
+  network that blocks the reporting endpoint without refusing it, every command
+  was pausing a further 1.5 seconds and now pauses not at all.
+
+- A report is now associated with the Terra user who ran the command, as well
+  as the account and the installation. Turning reporting off is unchanged, and
+  [docs/telemetry.md](docs/telemetry.md) lists every field that is sent.
+
+- That page now also describes two things it had left out: the IP address and
+  the approximate location derived from it, which reach the analytics service
+  with every report and always have, and the background process that delivers
+  one.
+
+###### Fixed
+
+- Logging in no longer leaves the previous user's identity on a profile. When
+  the account lookup failed while a new token was being stored, the profile
+  kept the ids of whoever had logged in before, and later usage was recorded
+  against them.
+
 ## v0.5.0
 
 ##### Added
