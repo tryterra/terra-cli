@@ -5,6 +5,61 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.6.0
+
+##### Changed
+
+- Twenty commands are renamed. A sub-resource that only ever held a single verb
+  is now that verb on the resource itself, so `company onboarding retrieve` is
+  `company retrieve-onboarding`. Nothing was removed and no flags changed.
+
+  | Before | Now |
+  | --- | --- |
+  | `account metadata retrieve` | `account retrieve-metadata` |
+  | `account metadata update` | `account update-metadata` |
+  | `billing invoices upcoming retrieve` | `billing invoices upcoming` |
+  | `company feature-flags list` | `company list-feature-flags` |
+  | `company onboarding retrieve` | `company retrieve-onboarding` |
+  | `company onboarding update` | `company update-onboarding` |
+  | `company points opt-in` | `company opt-in-points` |
+  | `company referral-code create` | `company ensure-referral-code` |
+  | `company referral-code retrieve` | `company retrieve-referral-code` |
+  | `company referrals retrieve` | `company retrieve-referrals` |
+  | `company terms create` | `company agree-terms` |
+  | `company terms retrieve` | `company retrieve-terms` |
+  | `data-tokens secret retrieve` | `data-tokens retrieve-secret` |
+  | `environments api-key retrieve` | `environments retrieve-api-key` |
+  | `environments api-key rotate` | `environments rotate-api-key` |
+  | `events payload retrieve` | `events retrieve-payload` |
+  | `unified-api destinations supabase oauth start` | `unified-api destinations supabase start-oauth` |
+  | `unified-api destinations supabase oauth retrieve` | `unified-api destinations supabase poll-oauth` |
+  | `unified-api destinations supabase oauth projects list` | `unified-api destinations supabase list-projects` |
+  | `users stats retrieve` | `users stats` |
+
+- `terra ask` is now `terra docs ask`, and the question is a flag rather than a
+  positional argument: `terra docs ask --question "how do I generate a widget
+  session"`. It prints the answer record, with `answer`, `confidence` and
+  `sources`, instead of prose followed by a SOURCES block.
+
+- `terra env` is gone. Use `terra environments`, the name help and
+  `terra reference` have always shown.
+
+- `terra whoami` prints the account record: JSON when piped, a table on a
+  terminal. It reports more than it used to, including `user`, `expires_at` and
+  `last_used_at`, and the `authenticated` field is gone, because a missing or
+  rejected credential now exits 2 with "not logged in" the way every other
+  command does. `terra account retrieve` is the same command under its full
+  name.
+
+- `--reveal` is gone, and the commands that return credential material print
+  their response as returned. A script passing it will report an unknown flag;
+  removing it is the whole change.
+
+##### Added
+
+- `terra docs ask` shows progress while it waits, since the answer takes a few
+  seconds to come back.
+
 ## v0.5.1
 
 ###### Changed
