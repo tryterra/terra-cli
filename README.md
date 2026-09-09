@@ -51,7 +51,7 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
 4. Ask a question when you are not sure:
 
    ```sh
-   terra ask "how do I generate an auth widget"
+   terra docs ask --question "how do I generate an auth widget"
    ```
 
    Answered from the documentation, with links to the pages it came from.
@@ -106,8 +106,7 @@ Set up a staging environment with Garmin and Fitbit turned on, and point its
 webhooks at my tunnel.
 ```
 
-Asking questions is safe: reading changes nothing, credentials stay hidden
-unless someone passes `--reveal`, and anything destructive refuses to run
+Asking questions is safe: reading changes nothing, and a delete refuses to run
 unattended rather than guessing that you meant it.
 
 ## Before you change anything
@@ -119,9 +118,8 @@ touches nothing. It needs no credential, so it is safe against production.
 terra environments update --name Acme --dry-run
 ```
 
-Commands whose response contains a credential will not print it without
-`--reveal`. Destructive ones confirm first, naming the account and environment
-they will act on, and need `--yes` where there is no terminal to ask.
+Deletes confirm first, naming the account and environment they will act on, and
+need `--yes` where there is no terminal to ask.
 
 ## Documentation
 
