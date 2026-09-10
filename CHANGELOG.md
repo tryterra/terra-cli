@@ -5,6 +5,45 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.7.0
+
+##### Added
+
+- **`--format yaml` and `--format csv`.** Both stream under `--paginate`, so a
+  full export is one command. CSV takes its header from the API description
+  rather than the first record, so a field that only appears on page three still
+  has a column.
+
+##### Changed
+
+- **`--json <fields>` is now `--select <fields>`**, with no alias. It narrows
+  the response in every format, so one flag picks the keys in a JSON document
+  and the columns in a table.
+- **A single record on a terminal is YAML.** A nested object becomes an indented
+  block instead of a line of raw JSON, and a long value no longer wraps back to
+  the first column. `terra whoami` is the difference.
+- **A list on a terminal is a table budgeted to your width**, with a rule under
+  the header and an over-long cell cut with a trailing `…`. Redirected output is
+  unchanged and still lossless.
+- **`--format table` gives a table whatever the response is.** One record is
+  transposed: field names in the first column, values in the second. Leave the
+  flag off for the whole shape.
+- `COLUMNS` is honored for terminal width.
+- `--format json` uses the shared palette, so a boolean is yellow rather than
+  cyan.
+
+##### Fixed
+
+- **A CSV opened in a spreadsheet no longer runs what the API sent.** Text
+  starting with `=`, `+`, `-`, `@`, or a tab is prefixed with an apostrophe.
+  Numbers are left alone, so an amount still parses as one.
+- **A terminal too narrow for every column keeps the leftmost**, which are the
+  identifying ones, and says on stderr how many it dropped. Before, the columns
+  it could not fit wrapped.
+- **A malformed response is an error rather than a partial answer.** A body with
+  trailing data after the first JSON value used to render only the first part
+  and exit 0.
+
 ## v0.6.1
 
 ##### Fixed
