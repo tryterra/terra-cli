@@ -118,8 +118,10 @@ touches nothing. It needs no credential, so it is safe against production.
 terra environments update --name Acme --dry-run
 ```
 
-Deletes confirm first, naming the account and environment they will act on, and
-need `--yes` where there is no terminal to ask.
+Destructive commands confirm first, naming the account and environment they
+will act on and what you cannot take back, and need `--yes` where there is no
+terminal to ask. These include deletes and commands that charge a card, rotate
+a live credential, or clear fields you leave out.
 
 ## Documentation
 
