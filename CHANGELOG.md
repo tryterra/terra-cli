@@ -5,6 +5,55 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.6.1
+
+##### Fixed
+
+- **Nine commands that change something you cannot get back now confirm before
+  acting.** Each names what it is about to do, and needs `--yes` where there is
+  no terminal to ask.
+
+  | Command | What you cannot take back |
+  | --- | --- |
+  | `billing subscriptions create` | Charges the payment method on file |
+  | `billing subscriptions cancel-incomplete` | Cancels every incomplete subscription on the account |
+  | `tokens rotate` | Invalidates the token you are signed in with |
+  | `environments rotate-api-key` | Breaks every integration holding the old `client_secret` |
+  | `unified-api sources credentials replace` | Replaces a provider's live OAuth credentials |
+  | `unified-api sources scopes replace` | Removes whatever is not in the body |
+  | `unified-api widget update` | Clears any field you leave out |
+  | `unified-api data scopes replace` | Stops collecting any data type you leave out |
+  | `unified-api data scopes update` | Deselects any field you leave out |
+
+  Sixteen commands confirm in total. Nothing that confirmed before has stopped.
+
+- `terra workouts metadata replace --help` no longer says fields you do not
+  supply are cleared. It does not clear them: an absent `pace_units` leaves
+  what is stored in place.
+
+##### Changed
+
+- **The confirmation prompt says what you cannot take back**, on its own line
+  before the question. The same sentence is in `--help`, so you meet it whether
+  you read ahead or not:
+
+  ```
+  This command will be executed on the account with the following details:
+  > Customer: cus-123
+  > Environment: dev-prod
+  The current client_secret stops working immediately, breaking every integration still holding it.
+  Are you sure you want to perform the command: environments rotate-api-key?
+  Enter 'yes' to confirm:
+  ```
+
+- **Scripts calling any of the nine commands above need `--yes`.** With no
+  terminal to ask, they refuse and say so rather than acting, the way deletes
+  already did. Add `--yes` to any unattended call before upgrading:
+
+  ```
+  terra: environments rotate-api-key is destructive and cannot prompt for confirmation here. Re-run with --yes.
+  ```
+
 ## v0.6.0
 
 ##### Changed
