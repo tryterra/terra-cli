@@ -5,6 +5,38 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.8.0
+
+#### Added
+
+- `terra events stats` for delivery counts, success rates, latency, breakdowns
+  and comparisons with the previous period.
+- Event filtering by destination type and summary ID, repeatable provider and
+  data-type filters, and user identity fields for resending events.
+- Runnable examples and richer scoped references, including request schemas,
+  defaults, constraints and repeatable flags.
+
+#### Changed
+
+- **Pagination supports JSON, table, YAML, CSV and NDJSON consistently.**
+  Results are buffered before rendering. Piped output defaults to one JSON
+  array; use `--format ndjson` for one record per line.
+- **Paginated jq expressions receive the complete array.** Change
+  `.user_id` to `.[].user_id`; aggregates such as `length` return one result.
+- Single records display as flattened key/value tables on terminals.
+  Use `--format yaml` for nested output.
+- User stats use an updated response schema with a basic summary by default.
+  `--view full` adds daily series and provider balances.
+- Help and completion expose all supported commands and flags, including
+  aliases and deprecated options. Narrow terminals retain complete flag guidance.
+- JSON references report actual flag types, such as `duration` and `string`.
+
+#### Fixed
+
+- Empty lists report the environment and filters on stderr.
+- Failed pagination reports incomplete output and skips jq filtering.
+- Nullable string-array flags accept `null` to clear their value.
+
 ## v0.7.0
 
 ##### Added
