@@ -19,6 +19,14 @@ terra environments update --name Acme --dry-run
 Nothing is sent. This is the fastest way to see which environment was resolved
 and what body was built.
 
+For a nullable string-array field, a single `--providers null` sends JSON
+`null`. Repeating the flag sends a list of strings. To send the literal list
+`["null"]`, use a raw body:
+
+```sh
+terra company update-onboarding --body '{"providers":["null"]}' --dry-run
+```
+
 ## Read the error
 
 Errors print the API's own remediation text, which usually names the fix. A
