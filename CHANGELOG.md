@@ -5,6 +5,15 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.8.1
+
+#### Fixed
+
+- `send-telemetry`, the internal helper the CLI runs for itself, no longer
+  appears in `terra --help`, `terra reference`, or shell completion. Every
+  supported command, alias and flag remains visible, and deprecated ones keep
+  their label.
+
 ## v0.8.0
 
 #### Added
