@@ -63,7 +63,8 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
    ```
 
    Every command and flag as one page. Name a group to narrow it:
-   `terra reference billing`.
+   `terra reference billing`. Both `terra <command> --help` and
+   `terra help <command>` list every supported flag for that command.
 
 ## Let your agent drive it
 
