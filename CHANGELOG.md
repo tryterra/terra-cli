@@ -5,6 +5,23 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.9.0
+
+#### Changed
+
+- **Granular scope selection during login.** `terra login` now requests every
+  admin scope, and the dashboard approval page decides what is granted: choose
+  a preset (Coding agent, Read only, Full access) or set per-resource access
+  levels before authorizing. A plain Authorize grants Coding agent, which now
+  includes `keys:read` and leaves dangerous scopes off. `--scope` still
+  requests exactly the scopes given.
+- `terra login --env` no longer requests account-level scopes, so a login
+  limited to environments succeeds.
+- `terra login --help` lists the presets and marks each scope `(dangerous)`,
+  `(sensitive)` or `(account-level)`.
+- `terra environments api-key rotate` requires `keys:write`, which a default
+  grant does not include.
+
 ## v0.8.1
 
 #### Fixed
