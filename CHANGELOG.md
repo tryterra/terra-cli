@@ -5,6 +5,23 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.10.0
+
+#### Added
+
+- **`terra events generate`.** Creates a synthetic test event of a given type
+  (`daily`, `activity`, `sleep`, `body`, `nutrition`, `menstruation`) for a
+  made-up user and delivers it to the environment's registered destinations,
+  or to one named with `--destination-id`. Optional `--provider`, `--user-id`,
+  `--reference-id` and `--start-time` shape the payload, which is returned in
+  the response. Requires `events:write` and an environment entitled to the
+  Unified API.
+
+#### Changed
+
+- `terra events --help` and the `events:write` scope description now mention
+  generating events.
+
 ## v0.9.0
 
 #### Changed
