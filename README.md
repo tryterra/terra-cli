@@ -74,6 +74,18 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
    `terra reference billing`. Both `terra <command> --help` and
    `terra help <command>` list every supported flag for that command.
 
+## Stay up to date
+
+Terra checks for updates once a day during terminal use. When a newer release
+is available, the notice shows the command for your installation and a link
+to the release notes.
+
+For Homebrew, run `brew upgrade tryterra/tap/terra`. For a global npm install,
+run `npm install -g @tryterra/cli@latest`. Run `terra version` afterwards to
+check the version your shell uses.
+
+Set `TERRA_NO_UPDATE_NOTIFIER=1` to disable update checks.
+
 ## Let your agent drive it
 
 Terra configuration usually means clicking around the dashboard, which your
