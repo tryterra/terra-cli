@@ -19,6 +19,16 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
 
 1. Install the CLI:
 
+   **Standalone (macOS and Linux):**
+
+   ```sh
+   curl -fsSL https://cli.tryterra.co/install.sh | sh
+   ```
+
+   Installs into `~/.local/bin` and configures PATH for Bash, Zsh, or fish.
+   Follow the printed command to activate it in your current terminal.
+   Rerun the installer to update; add `-s -- --help` after `sh` for options.
+
    **Homebrew (macOS):**
 
    ```sh
