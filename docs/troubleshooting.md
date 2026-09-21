@@ -52,6 +52,18 @@ request" from "the API answered this". `terra api --help` has the rest.
 given. Pass `--env`, set `TERRA_ENV`, or run `terra environments use`. Each takes
 the environment's name as readily as its dev-id.
 
+**"your configured default environment ... was not found"**. The active
+profile's `default_environment` does not identify an environment in this
+account. Run `terra environments list`, then `terra environments use <dev-id>`
+to select one. To clear the default, run
+`terra config --unset default_environment`. `--env` and `TERRA_ENV` override
+the configured default.
+
+**`terra whoami` shows `dev_ids: null`.** This field describes the token's
+environment restrictions. `null` means every environment in the account is
+allowed; a list restricts the token to those dev-ids. Run
+`terra environments list` to see the account's environments.
+
 **"the endpoint does not exist on this deployment"**. A bare 404 with no problem
 body usually means the request never reached the admin API: either the path is
 wrong or the surface is not enabled on that host. Check `terra config --list`
