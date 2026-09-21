@@ -5,6 +5,12 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.12.0
+
+- Make nested output easier to scan with sections, lists, and tables that adapt to terminal width.
+- Unify colors and typography across help, tables, JSON, and YAML.
+- Find commands by keyword with `terra help --search`, including typo suggestions.
+
 ## v0.11.0
 
 #### Added
