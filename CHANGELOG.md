@@ -5,6 +5,53 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.14.0
+
+### Breaking changes
+
+- Raw admin requests now use `terra admin-api`. Replace `terra api` in scripts
+  and commands, including `terra api list`, with `terra admin-api`. The old
+  spelling is no longer accepted. `terra data-api` keeps its name.
+- Remove `--no-verify` from raw admin and data API requests. Both commands now
+  send paths and methods without checking them against the bundled endpoint
+  catalog, so the flag is no longer needed or accepted.
+
+### Standalone installation
+
+- Install Terra on macOS or Linux without npm or Homebrew:
+
+  ```sh
+  curl -fsSL https://cli.tryterra.co/install.sh | sh
+  ```
+
+- Supports ARM64 and x86-64, installs into `~/.local/bin` by default without
+  sudo, and configures PATH for Bash, Zsh, or fish. The installer prints the
+  command to activate PATH in the current terminal.
+- Choose a release with `--version`, a destination with `--install-dir`, or
+  skip shell changes with `--no-modify-path`. `TERRA_INSTALL_DIR` and
+  `TERRA_NO_MODIFY_PATH=1` provide the corresponding environment overrides.
+- Downloads are verified against SHA-256 checksums. The installer detects
+  competing installations, requires `--force` to replace an unrecognized
+  destination or install alongside another copy, and serializes concurrent
+  installs even when `--force` is used. Failed or interrupted replacement
+  restores the previous installation when rollback succeeds.
+- Rerun the installer to update. Update notices recognize standalone installs
+  and provide an installer command that preserves a custom install directory.
+- Stable releases update and verify the hosted installer after publishing the
+  binary archives. Prereleases leave the stable installer unchanged.
+
+### Raw API requests
+
+- `terra admin-api` and `terra data-api` can reach endpoints and HTTP methods
+  added after this CLI's bundled API description. The server determines whether
+  a route is supported; valid new endpoints are no longer rejected locally.
+- Endpoint discovery and completion still use the bundled catalog and can lag
+  the server. Use `terra admin-api list` for known admin endpoints or
+  `terra admin-api list --data-api` for known data endpoints. Request syntax
+  checks and DELETE confirmation still apply.
+- Help, examples, and troubleshooting guidance use the explicit `admin-api`
+  command name and document the standalone installation path.
+
 ## v0.13.0
 
 - Filter event delivery history and statistics by destination with
