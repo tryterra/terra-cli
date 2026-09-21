@@ -58,6 +58,14 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
 
 5. Find any other command:
 
+   Search command names and descriptions, including nested commands:
+
+   ```sh
+   terra help --search webhook
+   ```
+
+   Or read the full reference:
+
    ```sh
    terra reference
    ```
@@ -123,6 +131,10 @@ Destructive commands confirm first, naming the account and environment they
 will act on and what you cannot take back, and need `--yes` where there is no
 terminal to ask. These include deletes and commands that charge a card, rotate
 a live credential, or clear fields you leave out.
+
+On a terminal, nested objects appear as sections and arrays of records as
+tables. Wide automatic tables fall back to stacked records. Use `--format json`
+for structured output in scripts.
 
 ## Documentation
 
