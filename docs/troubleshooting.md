@@ -38,13 +38,13 @@ rejected the command. See [Exit codes](#exit-codes) below.
 ## See the raw response
 
 ```sh
-terra api /environments
-terra api list --uncovered
+terra admin-api /environments
+terra admin-api list --uncovered
 ```
 
-`terra api` reaches any endpoint by path, without the generated command's
+`terra admin-api` reaches any endpoint by path, without the generated command's
 validation or formatting in the way, which separates "the CLI built the wrong
-request" from "the API answered this". `terra api --help` has the rest.
+request" from "the API answered this". `terra admin-api --help` has the rest.
 
 ## Common cases
 
