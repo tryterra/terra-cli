@@ -5,6 +5,24 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.11.0
+
+#### Added
+
+- Browse example apps with `terra examples list` and download one with
+  `terra examples clone <example> [directory]`. No Terra login or Git required.
+- Both commands support `--format`, `--select`, and `--jq`, with tables in a
+  terminal and JSON when piped.
+- Examples are fetched from the public catalog, so new apps appear without
+  updating the CLI.
+
+Try it without installing:
+
+```sh
+npx @tryterra/cli@latest examples list
+npx @tryterra/cli@latest examples clone unified-api-web-app my-app
+```
+
 ## v0.10.0
 
 #### Added
