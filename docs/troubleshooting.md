@@ -10,14 +10,15 @@ This traces the request and response to stderr. Headers are redacted and bodies
 show only their byte count, so the output is safe to paste into an issue. The
 response body still goes to stdout, unmixed with the trace.
 
-## Check what would be sent
+## Preview a change
 
 ```sh
 terra environments update --name Acme --dry-run
 ```
 
-Nothing is sent. This is the fastest way to see which environment was resolved
-and what body was built.
+The API validates the request and returns a preview without committing the
+change. This requires a credential and is available only where `--help` lists
+`--dry-run`. API errors keep their normal exit codes.
 
 For a nullable string-array field, a single `--providers null` sends JSON
 `null`. Repeating the flag sends a list of strings. To send the literal list
