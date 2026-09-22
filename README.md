@@ -26,7 +26,8 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
    ```
 
    Installs into `~/.local/bin` and configures PATH for Bash, Zsh, or fish.
-   Follow the printed command to activate it in your current terminal.
+   If prompted, open a new terminal or run the printed PATH command before
+   logging in.
    Rerun the installer to update; add `-s -- --help` after `sh` for options.
 
    **Homebrew (macOS):**
