@@ -5,6 +5,10 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.14.1
+
+- Standalone Installer: Skips PATH setup instructions and profile edits if the installed Terra binary is already resolved
+
 ## v0.14.0
 
 ### Breaking changes
