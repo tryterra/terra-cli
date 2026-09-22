@@ -87,15 +87,21 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
 
 ## Stay up to date
 
-Terra checks for updates once a day during terminal use. When a newer release
-is available, the notice shows the command for your installation and a link
-to the release notes.
+Terra automatically updates standalone, global npm, and Homebrew installations.
+An invocation can start a background check once every four hours. Your command
+does not wait for the check or installation, and subsequent invocations use the
+updated version. Coding agents can trigger updates; CI does not.
 
-For Homebrew, run `brew upgrade tryterra/tap/terra`. For a global npm install,
-run `npm install -g @tryterra/cli@latest`. Run `terra version` afterwards to
-check the version your shell uses.
+To update explicitly, run `terra update`. On Windows, this schedules the update
+after the command exits. Run `terra version` to check the version your shell uses.
 
-Set `TERRA_NO_UPDATE_NOTIFIER=1` to disable update checks.
+Project dependencies, npx, and pinned Homebrew installations are not changed
+automatically. Other installation methods receive manual update instructions.
+Updates never request elevated permissions.
+
+Set `TERRA_NO_AUTO_UPDATE=1` to keep update notices without installing updates.
+Set `TERRA_NO_UPDATE_NOTIFIER=1` or `DO_NOT_TRACK=1` to disable automatic update
+activity entirely. These settings do not prevent an explicit `terra update`.
 
 ## Let your agent drive it
 
@@ -143,8 +149,9 @@ unattended rather than guessing that you meant it.
 
 ## Before you change anything
 
-Every command takes `--dry-run`, which prints the request that would be sent and
-touches nothing. It needs no credential, so it is safe against production.
+Commands that support previews offer `--dry-run`. It sends an authenticated
+request to the API, which reports what would change without committing it.
+Commands without preview support reject the flag.
 
 ```sh
 terra environments update --name Acme --dry-run
