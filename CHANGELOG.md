@@ -5,6 +5,46 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.15.0
+
+### Breaking changes
+
+- `--dry-run` now sends an authenticated API request to preview a change
+  without committing it. It requires credentials and a network connection.
+  Offline request printing is no longer available. Commands without preview
+  support, including `terra admin-api` and `terra data-api`, reject the flag.
+- Billing subscription responses use `payment_url` instead of `dashboard_url`.
+  Update scripts and `--select` expressions that read the payment link.
+  Subscription creation accepts `monthly` or `annual` for `--schedule`;
+  the `startup` plan requires it.
+
+### Server previews
+
+- Preview changes on 39 supported operations, including billing subscriptions.
+  Use the command's `--help` to check for `--dry-run`.
+- Preview output includes the server's `would` and `preview` fields. Use
+  `--select` to pick preview fields or `--jq` to query the full response.
+  Previews skip destructive confirmation and do not send idempotency keys.
+
+### Automatic updates
+
+- Standalone, global npm, and Homebrew installations now update in the
+  background. Eligible commands can start a check once every four hours;
+  your command does not wait for the update. CI, project dependencies, npx,
+  and pinned Homebrew installations are excluded from automatic updates.
+- Run `terra update` to update explicitly. On Windows, the update runs after
+  the command exits. Standalone updates verify signed checksums before
+  replacing the binary, and updates never request elevated permissions.
+- Set `TERRA_NO_AUTO_UPDATE=1` to keep notices without installing updates.
+  Set `TERRA_NO_UPDATE_NOTIFIER=1` or `DO_NOT_TRACK=1` to disable automatic
+  update activity entirely. Explicit `terra update` still works.
+- To update an older standalone installation to this release, rerun the
+  installer:
+
+  ```sh
+  curl -fsSL https://cli.tryterra.co/install.sh | sh
+  ```
+
 ## v0.14.1
 
 - Standalone Installer: Skips PATH setup instructions and profile edits if the installed Terra binary is already resolved
