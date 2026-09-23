@@ -71,46 +71,21 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ steps.rel.outputs.tag }}
 
-      - name: Check every package is present before publishing any
-        run: |
-          set -euo pipefail
-          missing=0
-          for want in darwin-arm64 darwin-x64 linux-x64 linux-arm64 win32-x64 win32-arm64; do
-            ls tarballs/tryterra-cli-"$want"-"$VERSION".tgz >/dev/null 2>&1 \
-              || { echo "missing the $want package"; missing=1; }
-          done
-          ls tarballs/tryterra-cli-"$VERSION".tgz >/dev/null 2>&1 \
-            || { echo "missing the wrapper package"; missing=1; }
-          test "$missing" -eq 0
+      - name: Derive and validate packages from the released wrapper registry
+        run: node .github/scripts/npm-packages.mjs "$VERSION" tarballs > packages.tsv
         env:
           VERSION: ${{ steps.rel.outputs.version }}
 
-      # The wrapper pins the platform packages exactly, so it must go last.
-      - name: Publish the platform packages
+      - name: Publish registry packages with the wrapper last
         run: |
           set -euo pipefail
-          for p in darwin-arm64 darwin-x64 linux-x64 linux-arm64 win32-x64 win32-arm64; do
-            name="@tryterra/cli-$p"
+          while IFS=$'\t' read -r name archive; do
             if npm view "$name@$VERSION" version >/dev/null 2>&1; then
               echo "$name@$VERSION is already published, skipping"
               continue
             fi
-            npm publish --access public --tag "$DIST_TAG" \
-              "./tarballs/tryterra-cli-$p-$VERSION.tgz"
-          done
-        env:
-          VERSION: ${{ steps.rel.outputs.version }}
-          DIST_TAG: ${{ steps.rel.outputs.dist_tag }}
-
-      - name: Publish the wrapper
-        run: |
-          set -euo pipefail
-          if npm view "@tryterra/cli@$VERSION" version >/dev/null 2>&1; then
-            echo "@tryterra/cli@$VERSION is already published, skipping"
-            exit 0
-          fi
-          npm publish --access public --tag "$DIST_TAG" \
-            "./tarballs/tryterra-cli-$VERSION.tgz"
+            npm publish --access public --tag "$DIST_TAG" "./tarballs/$archive"
+          done < packages.tsv
         env:
           VERSION: ${{ steps.rel.outputs.version }}
           DIST_TAG: ${{ steps.rel.outputs.dist_tag }}
@@ -123,9 +98,9 @@ jobs:
             echo
             echo "| package | version | dist-tag |"
             echo "|---|---|---|"
-            for n in cli cli-darwin-arm64 cli-darwin-x64 cli-linux-x64 cli-linux-arm64 cli-win32-x64 cli-win32-arm64; do
-              echo "| @tryterra/$n | $VERSION | $DIST_TAG |"
-            done
+            while IFS=$'\t' read -r name archive; do
+              echo "| $name | $VERSION | $DIST_TAG |"
+            done < packages.tsv
           } >> "$GITHUB_STEP_SUMMARY"
         env:
           VERSION: ${{ steps.rel.outputs.version }}
