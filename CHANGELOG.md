@@ -5,6 +5,26 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.16.0
+
+- Install Terra directly from Windows PowerShell 5.1 or PowerShell 7:
+
+  ```powershell
+  irm https://cli.tryterra.co/install.ps1 | iex
+  ```
+
+  Native Install adds Terra to your user PATH without administrator privileges.
+  Rerun the installer to update, or use `terra update`. Native Windows installs
+  also support automatic updates.
+- Run Terra natively on Windows ARM64. The PowerShell installer automatically
+  selects the ARM64 binary, including when launched from an emulated shell.
+  Windows x64 remains supported.
+- Install the native Windows ARM64 binary through npm with ARM64 Node.js:
+
+  ```sh
+  npm install -g @tryterra/cli
+  ```
+
 ## v0.15.0
 
 ### Breaking changes
