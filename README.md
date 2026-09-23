@@ -19,7 +19,7 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
 
 1. Install the CLI:
 
-   **Standalone (macOS and Linux):**
+   **Native Install (macOS and Linux):**
 
    ```sh
    curl -fsSL https://cli.tryterra.co/install.sh | sh
@@ -29,6 +29,16 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
    If prompted, open a new terminal or run the printed PATH command before
    logging in.
    Rerun the installer to update; add `-s -- --help` after `sh` for options.
+
+   **Native Install (Windows PowerShell, x64 or ARM64):**
+
+   ```powershell
+   irm https://cli.tryterra.co/install.ps1 | iex
+   ```
+
+   Requires Windows PowerShell 5.1 or PowerShell 7. Installs into
+   `%LOCALAPPDATA%\Terra\bin` and adds it to your user and current session PATH.
+   No administrator privileges are needed.
 
    **Homebrew (macOS):**
 
@@ -41,6 +51,8 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
    ```sh
    npm install -g @tryterra/cli
    ```
+
+   On Windows ARM64, use ARM64 Node.js for a native npm installation.
 
 2. Log in:
 
@@ -87,7 +99,8 @@ The documentation is at [docs.tryterra.co/developer-tools/terra-cli][docs].
 
 ## Stay up to date
 
-Terra automatically updates standalone, global npm, and Homebrew installations.
+Terra automatically updates Native Installs, global npm, and Homebrew
+installations.
 An invocation can start a background check once every four hours. Your command
 does not wait for the check or installation, and subsequent invocations use the
 updated version. Coding agents can trigger updates; CI does not.
