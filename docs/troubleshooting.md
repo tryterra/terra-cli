@@ -70,8 +70,8 @@ body usually means the request never reached the admin API: either the path is
 wrong or the surface is not enabled on that host. Check `terra config --list`
 for the base URL in use.
 
-**A destructive command refuses.** There is no terminal to confirm against. Add
-`--yes`.
+**A command refuses because it requires confirmation.** There is no terminal to
+confirm against. Add `--yes`.
 
 **"not logged in"**. Run `terra login`, or set `TERRA_ADMIN_TOKEN`. Check with
 `terra whoami`.
