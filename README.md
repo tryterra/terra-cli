@@ -170,10 +170,11 @@ Commands without preview support reject the flag.
 terra environments update --name Acme --dry-run
 ```
 
-Destructive commands confirm first, naming the account and environment they
-will act on and what you cannot take back, and need `--yes` where there is no
-terminal to ask. These include deletes and commands that charge a card, rotate
-a live credential, or clear fields you leave out.
+Commands with consequences confirm first, naming the account and environment
+they will act on and why they ask, and need `--yes` where there is no terminal
+to ask. These include deletes, commands that charge a card, rotate a live
+credential or clear fields you leave out, and commands that send stored event
+data to a destination. `--dry-run` previews never ask.
 
 On a terminal, nested objects appear as sections and arrays of records as
 tables. Wide automatic tables fall back to stacked records. Use `--format json`
