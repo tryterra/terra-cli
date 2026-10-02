@@ -5,6 +5,38 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.17.0
+
+#### Breaking changes
+
+- Commands that send data somewhere or grant access now ask for confirmation
+  before acting: `unified-api destinations create` and `update`,
+  `events resend`, `data-tokens create`, `team invitations create`, and
+  `team members update`. The prompt says what the command will do. Pass `--yes`
+  in scripts: without a terminal to prompt on, these commands stop with
+  `requires confirmation and cannot prompt for confirmation here` instead of
+  running. `--dry-run` never asks.
+- `billing usage retrieve` is removed. Use `billing usage current`, which
+  reports each metered item over its current measurement window without a meter
+  ID or a Unix-second time window.
+
+#### Added
+
+- `billing invoices pay` pays an open invoice. If the payment needs
+  authentication, open the returned `payment_url` to finish it.
+- `billing invoices previews` previews the next invoice for every billable
+  subscription, without charging or creating an invoice.
+- `billing invoice-details update` sets the legal name and VAT number printed on
+  future invoices.
+- `billing usage current` shows current metered usage for each subscription
+  item, with daily totals and pricing.
+- `vantage api-version retrieve` shows the Vantage API version an environment is
+  pinned to and the versions it can move to. `vantage api-version update` moves
+  the pin, and supports `--dry-run`.
+
+`billing invoices pay` and `billing invoice-details update` ask for
+confirmation too.
+
 ## v0.16.0
 
 - Install Terra directly from Windows PowerShell 5.1 or PowerShell 7:
