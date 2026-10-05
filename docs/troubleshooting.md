@@ -20,14 +20,6 @@ The API validates the request and returns a preview without committing the
 change. This requires a credential and is available only where `--help` lists
 `--dry-run`. API errors keep their normal exit codes.
 
-For a nullable string-array field, a single `--providers null` sends JSON
-`null`. Repeating the flag sends a list of strings. To send the literal list
-`["null"]`, use a raw body:
-
-```sh
-terra company update-onboarding --body '{"providers":["null"]}' --dry-run
-```
-
 ## Read the error
 
 Errors print the API's own remediation text, which usually names the fix. A
