@@ -5,6 +5,32 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.18.0
+
+#### Breaking changes
+
+- These commands are removed, as they are no longer part of the public API:
+  - `account retrieve-metadata` and `account update-metadata`
+  - `company agree-terms`, `ensure-referral-code`, `list-feature-flags`,
+    `opt-in-points`, `retrieve-onboarding`, `retrieve-referral-code`,
+    `retrieve-referrals`, `retrieve-terms` and `update-onboarding`. Use
+    `entitlements list` to see which features an account has.
+- These commands are removed so that each task has one command for it:
+  - `billing invoices upcoming`: use `billing invoices previews`.
+  - `workouts metadata update`: use `workouts metadata replace` to set
+    metadata and `workouts metadata delete` to clear it.
+  - `environments create`: it recorded details for an existing environment
+    rather than creating a new one.
+- `billing usage current` is renamed to `billing usage retrieve`. Its output is
+  unchanged.
+- These commands change configuration and all support `--dry-run`, so they no
+  longer ask for confirmation and no longer accept `--yes`: `events resend`,
+  `unified-api destinations create` and `update`, `unified-api sources disable`,
+  `unified-api sources scopes replace`, `unified-api data scopes update` and
+  `replace`, `unified-api widget update`, and `workouts metadata delete`.
+  Remove `--yes` from scripts that call them. Commands that affect billing,
+  credentials or team access still ask.
+
 ## v0.17.0
 
 #### Breaking changes
