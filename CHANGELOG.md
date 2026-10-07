@@ -5,6 +5,27 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.19.0
+
+#### Breaking changes
+
+- `events generate` now requires the `testdata:write` scope instead of
+  `events:write`. Re-mint tokens that lack it.
+- `supabase provision` now asks for confirmation. Pass `--yes` when running it
+  without a terminal.
+
+#### New
+
+- `synthetic-users create`, `list`, `retrieve`, `start` and `stop`, and
+  `users retrieve-data`.
+- `destination-types list`, `unified-api destinations retrieve` and
+  `unified-api destinations retrieve-secrets`.
+- `unified-api destinations create` and `update` take `--config`. `--url` and
+  `--metadata` are deprecated.
+- Synthetic users show their `reference_id`.
+- `terra login` sends the machine's hostname and the CLI's User-Agent, so the
+  approval page shows where the request came from.
+
 ## v0.18.0
 
 #### Breaking changes
