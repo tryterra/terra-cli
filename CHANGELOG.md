@@ -5,6 +5,32 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.20.0
+
+#### Breaking changes
+
+- `destination-types list` is now `unified-api destination-types list`, and
+  takes `--env` like the other `unified-api` commands.
+
+#### New
+
+- `unified-api sources batch-enable` and `batch-disable` turn up to 100
+  providers on or off in one call. Either every provider changes or none does.
+- `unified-api destinations batch-create` creates up to 100 destinations in one
+  call, all or nothing.
+- `unified-api sources update`, `sources credentials update` and
+  `sources scopes reset`. `sources credentials replace` takes `--secret-ref`.
+- `unified-api sources domain retrieve`, `set` and `delete` manage a provider's
+  custom domain. `delete` asks for confirmation.
+- `unified-api source-types list` lists every provider you can enable.
+- `unified-api data data-types list` lists the data types you can select.
+- `account retrieve` reports whether a billing account is linked.
+
+#### Fixes
+
+- Built with Go 1.26.9, which fixes vulnerabilities in the standard library's
+  TLS, HTTP and file handling.
+
 ## v0.19.0
 
 #### Breaking changes
