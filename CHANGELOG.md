@@ -5,6 +5,22 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.21.0
+
+#### New
+
+- `events generate --dispatch=false` builds a synthetic event and prints the
+  payload without storing or delivering it, so it works before you have
+  registered a destination.
+- `events list` sorts with `--order-by` (`sent_at`, `http_status`, `provider`,
+  `data_type`, `destination_type` or `response_time_ms`) and `--order`
+  (`asc` or `desc`). The default is still newest first.
+- `users list --q` searches by reference ID prefix, or by an exact user ID.
+- `models runs list --q` searches user IDs, run IDs and error messages.
+- `users list` now includes the scopes each user granted their provider.
+- `unified-api sources credentials replace` and `update` accept Google Cloud
+  Secret Manager in `--secret-ref`, alongside AWS.
+
 ## v0.20.0
 
 #### Breaking changes
