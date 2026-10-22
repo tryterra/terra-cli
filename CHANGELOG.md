@@ -5,6 +5,27 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.22.0
+
+#### Breaking changes
+
+- `environments update` is removed, because the API no longer supports
+  changing an environment's name or billable flag.
+
+#### New
+
+- `lab-reports api-version retrieve` and `update` view and change the lab
+  reports API version for an environment.
+- `vantage events list`, `retrieve` and `retrieve-payload` read the Vantage
+  event log.
+- `environments list` and `environments retrieve` show whether an environment
+  is production.
+
+#### Fixes
+
+- Built with Go 1.26.10, which fixes vulnerabilities in the standard library's
+  certificate verification.
+
 ## v0.21.0
 
 #### New
