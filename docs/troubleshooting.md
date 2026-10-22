@@ -13,7 +13,7 @@ response body still goes to stdout, unmixed with the trace.
 ## Preview a change
 
 ```sh
-terra environments update --name Acme --dry-run
+terra company update --name Acme --dry-run
 ```
 
 The API validates the request and returns a preview without committing the
