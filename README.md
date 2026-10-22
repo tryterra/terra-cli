@@ -167,7 +167,7 @@ request to the API, which reports what would change without committing it.
 Commands without preview support reject the flag.
 
 ```sh
-terra environments update --name Acme --dry-run
+terra company update --name Acme --dry-run
 ```
 
 Commands with consequences confirm first, naming the account and environment
