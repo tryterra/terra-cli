@@ -5,6 +5,63 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.23.0
+
+#### Vantage, from the terminal
+
+Most of Vantage is now in the CLI. You can follow an order from placement to
+results, choose what you sell and where, and manage the Vantage webhook,
+without opening the dashboard.
+
+**Orders and results**
+
+- `terra vantage orders list` and `terra vantage orders retrieve` show your
+  orders newest first, with filters.
+- `terra vantage results list` and `terra vantage results retrieve` show the
+  results that have come back.
+- `retrieve-payload` on either gives you the full order or result body.
+
+**Products and markets**
+
+- `terra vantage catalogue list` shows every product you can offer.
+- `terra vantage products list` shows the ones this environment offers.
+- `terra vantage products enable <product_id>` and `disable <product_id>`
+  switch one product. `batch-enable` and `batch-disable` switch several.
+- `terra vantage markets retrieve` and `update` choose whether a testing or
+  staging environment sells in the UK, the US or both, for example
+  `--markets uk --markets us`. Terra sets the markets for production
+  environments.
+
+**Webhooks and events**
+
+- `terra vantage webhook retrieve` and `update` view and change where
+  Vantage events are delivered.
+- `terra vantage events resend` sends an event again.
+- `terra vantage events generate` sends a test event to your webhook URL,
+  so you can check your handler without placing an order.
+- Events now appear as soon as they happen, as `pending` until delivered.
+  `terra vantage events retrieve` lists every delivery attempt, and
+  `retrieve-payload` works before the first delivery.
+
+Every new command that changes something supports `--dry-run`.
+
+#### Breaking changes
+
+- `terra vantage events list` replaces `--outcome` with `--status`, which
+  takes `pending`, `delivered`, `failed` or `canceled`. Its columns are now
+  STATUS, LAST STATUS CODE and ATTEMPT COUNT, which changes `--format csv`
+  and `--select` output.
+- `terra vantage api-version` and `terra vantage markets` need the new
+  `vantageconfig:read` and `vantageconfig:write` scopes. Run `terra login`
+  again to get them.
+
+#### Also new
+
+- `terra vantage` and `terra lab-reports` are listed under PRODUCT COMMANDS
+  in `terra --help`.
+- `terra data-api` can reach `PUT /workouts/{workout_id}`, which updates a
+  workout template.
+
 ## v0.22.0
 
 #### Breaking changes
