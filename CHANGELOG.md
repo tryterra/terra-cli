@@ -5,6 +5,24 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.24.0
+
+#### New
+
+- `terra vantage variants list` shows the variants of each product.
+  `enable <variant_id>` and `disable <variant_id>` switch one variant, and
+  `batch-enable` and `batch-disable` switch several.
+- `terra vantage orders simulate` moves a sandbox order through its lifecycle,
+  and `terra vantage simulation retrieve` shows how far a simulation has got.
+  Both work in sandbox environments only.
+- `terra vantage stats retrieve` summarizes your Vantage orders and results.
+  `--view full` adds the breakdowns, and `--compare previous_period` sets the
+  numbers against the period before.
+- `terra vantage catalogue list` includes each product's variants in JSON
+  output.
+
+Every new command that changes something supports `--dry-run`.
+
 ## v0.23.0
 
 #### Vantage, from the terminal
