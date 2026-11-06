@@ -5,6 +5,53 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.25.0
+
+#### Webhook events, with deliveries and attempts
+
+`terra events` now shows each webhook event once, with where its delivery
+stands across every destination it was sent to.
+
+- `terra events list` shows one row per event, with its STATUS, DESTINATION
+  COUNT, ATTEMPT COUNT and CREATED AT.
+- `--status` filters by `pending`, `delivered`, `failed` or `canceled`, and
+  `--type` by event type, including wildcards like `'unified_api.auth.*'`.
+- `terra events retrieve` lists each destination's delivery and every attempt.
+- `terra event-types list` shows the event types and when each occurs.
+
+#### A signing secret per destination
+
+- `terra unified-api destinations rotate-signing-secret <destination_id>`
+  gives a webhook destination a new signing secret. It asks for confirmation
+  and supports `--dry-run`.
+- `terra vantage webhook retrieve-secrets` shows the secret Vantage webhooks
+  are signed with.
+
+#### Breaking changes
+
+- `terra events list` replaces `--outcome` with `--status` and `--data-type`
+  with `--type`. `--order-by` takes only `created_at`. The columns changed,
+  which changes `--format csv` and `--select` output.
+- `terra events resend` resends one event to one destination: pass
+  `--event-id` and `--destination-id`. `--user-id` and `--event-type` are
+  gone.
+- `terra unified-api destinations create` no longer accepts
+  `--signing-secret-source environment`. Every webhook destination signs with
+  its own secret.
+- `terra environments retrieve-api-key` no longer returns a webhook signing
+  secret. Use `terra unified-api destinations retrieve-secrets` or
+  `terra vantage webhook retrieve-secrets`.
+- Data tokens can no longer be granted `keys:read`.
+
+#### Also new
+
+- `terra synthetic-users ensure-samples` makes sure the environment has its
+  five sample users with history, 45 days by default (`--days`). It is safe
+  to run again.
+- A production environment's data token is shown once, when
+  `terra data-tokens create` makes it, so save it then.
+  `terra data-tokens retrieve-secret` works for sandbox tokens only.
+
 ## v0.24.0
 
 #### New
