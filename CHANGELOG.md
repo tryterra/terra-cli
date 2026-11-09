@@ -5,6 +5,29 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.26.0
+
+#### New
+
+- `terra doctor check` checks an environment for problems that stop data
+  reaching you, across destinations, sources and connections, tokens,
+  billing, team and each product you have. It returns one finding per
+  problem, errors first. `--category` narrows it to `security`,
+  `performance` or `health`, and `--name` to particular checks.
+- `terra unified-api destinations health` shows how deliveries to each
+  destination are going: healthy, degraded, failing, idle, disabled or
+  unknown, with the reason. `--destination-id` narrows it.
+- Webhook destinations include `disabled_reason` and `disabled_at` in JSON
+  output.
+
+#### Synthetic users
+
+- `terra synthetic-users create --backfill-days` goes up to 90 days.
+- `terra synthetic-users create` and `start` accept `--duration-hours 168`
+  for a one-week run.
+- `terra synthetic-users ensure-samples` now gives each sample user 90 days
+  of history by default, and `--days` goes up to 90.
+
 ## v0.25.0
 
 #### Webhook events, with deliveries and attempts
