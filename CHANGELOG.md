@@ -5,6 +5,19 @@ version's release note. The releases themselves, with the archives, checksums
 and signatures, are on the
 [releases page](https://github.com/tryterra/terra-cli/releases).
 
+## v0.27.0
+
+#### New
+
+- Extensions: `terra <name>` now runs a program called `terra-<name>` from
+  your PATH when `<name>` is not a built-in command. Built-in commands and
+  their aliases always win. `terra --help` lists the extensions installed on
+  your machine.
+- `terra data-api` accepts a data token. Set `TERRA_DATA_TOKEN`, for example
+  to a token from `terra data-tokens create`, and it is sent as a bearer
+  beside the dev-id in place of the environment's API key. A data token wins
+  where `TERRA_API_KEY` is also set.
+
 ## v0.26.0
 
 #### New
